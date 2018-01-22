@@ -52,3 +52,5 @@ define( "ADMIN_CREDENTIALS", array(
 error_reporting( 0 );
 ini_set( 'display_errors', 0 );
 
+/* REMOVE THIS LINE ONCE YOU'VE FINISHED CONFIGURING THIS FILE */
+die ( "<h1 style='font:bold 50px sans-serif;color:#F00;text-align:center;'>" . __FILE__ . " is not configured!</h1>" );
