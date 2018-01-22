@@ -32,10 +32,10 @@ define( 'DB_USER',		'' );
 define( 'DB_PASSWORD',	'' );
 
 /* Admin credentials */
-define( "ADMIN_CREDENTIALS", array(
+$ADMIN_CREDENTIALS = array(
 	(object) array(
 		'email'		=> '',
-		'password'	=> '' // use /edit/actions/pw or PHP's "password_hash" function to generate
+		'password'	=> '' // use [domain]/edit/actions/pw or PHP's "password_hash" function to generate
 	),
 /* uncomment / copy this to add more admins
 	(object) array(
@@ -43,7 +43,7 @@ define( "ADMIN_CREDENTIALS", array(
 		'password' => ''
 	),
 */
-) );
+);
 
 /**
  * PHP error reporting
