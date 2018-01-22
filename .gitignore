@@ -1,3 +1,4 @@
 .DS_Store
 # composer.phar
 html/edit/cache/*
+typeset2_config.php
