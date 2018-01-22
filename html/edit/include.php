@@ -208,7 +208,6 @@ class typeset {
 /* Markdown Formatter */
 
 	public function markdown_format($text) {
-		global $typeset_root;
 		$text = preg_replace("#\r\n?#", "\n", $text); // Normalize line breaks
 		$text = preg_replace("#([^\n])\n([^\n])#", "$1  \n$2", $text); // Respect line breaks
 		$text = preg_replace('#<*([_a-z0-9-\.]+@[_a-z0-9-\.]+\.[a-z]{2,3})>*(\s|$)#i', '<$1>$2', $text); // Detect emails
@@ -280,7 +279,7 @@ class typeset {
 
 	public function resize_image($options=array()) {
 
-		global $typeset_root, $typeset_settings;
+		global $typeset_settings;
 		
 		// Normalize data
 		$options["width"] = $options["width"] * 1;
