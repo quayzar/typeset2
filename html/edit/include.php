@@ -1,18 +1,38 @@
 <?
 
-$root = __DIR__;
-$site_root = realpath(__DIR__ . '/..');
+/* define paths */
 
-include "$root/_settings.php";
-include "$root/database.php";
-include "$root/components/autoload.php";
+// typeset directory (i.e. /home/my-user/public_html/edit)
+$typeset_root = __DIR__;
+
+// hosting root (i.e. /home/my-user/public_html/)
+$site_root = realpath( dirname( $typeset_root ) );
+
+// above hosting root (i.e. /home/my-user/)
+$above_site_root = dirname( $site_root );
+
+/* load config file */
+$config_file = "/typeset_config.php";
+if( file_exists( $above_site_root . $config_file ) ) { // try above site root
+	require( $above_site_root . $config_file );
+} elseif( file_exists( $site_root . '/typeset_config.php' ) ) { // try site root
+	require( $site_root . $config_file );
+} elseif( file_exists( $typeset_root . '/typeset_config.php' ) ) { // try typeset root
+	require( $typeset_root . $config_file );
+} else { // config file
+	die( '<h1 style="font:bold 50px sans-serif;color:#f00;text-align:center;">No typeset2 config file found!</h1>' );
+}
+
+include $typeset_root . "/_settings.php";
+include $typeset_root . "/database.php";
+include $typeset_root . "/components/autoload.php";
 use \Michelf\Markdown;
-$db = new DB($typeset_settings->database);
+$db = new DB( $typeset_settings->database );
 
-if (!isset($pages_path)) $pages_path ="";
-$admin_folder = explode("/", $root);
-$admin_folder = end($admin_folder);
-$admin_folder = $pages_path.$admin_folder;
+if ( !isset( $pages_path ) ) $pages_path = "";
+$admin_folder = explode( "/", $typeset_root );
+$admin_folder = end( $admin_folder );
+$admin_folder = $pages_path . $admin_folder;
 
 $credentials = array();	
 		
@@ -188,7 +208,7 @@ class typeset {
 /* Markdown Formatter */
 
 	public function markdown_format($text) {
-		global $root;
+		global $typeset_root;
 		$text = preg_replace("#\r\n?#", "\n", $text); // Normalize line breaks
 		$text = preg_replace("#([^\n])\n([^\n])#", "$1  \n$2", $text); // Respect line breaks
 		$text = preg_replace('#<*([_a-z0-9-\.]+@[_a-z0-9-\.]+\.[a-z]{2,3})>*(\s|$)#i', '<$1>$2', $text); // Detect emails
@@ -260,7 +280,7 @@ class typeset {
 
 	public function resize_image($options=array()) {
 
-		global $root, $typeset_settings;
+		global $typeset_root, $typeset_settings;
 		
 		// Normalize data
 		$options["width"] = $options["width"] * 1;
