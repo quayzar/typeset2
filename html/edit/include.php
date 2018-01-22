@@ -12,12 +12,12 @@ $site_root = realpath( dirname( $typeset_root ) );
 $above_site_root = dirname( $site_root );
 
 /* load config file */
-$config_file = "/typeset_config.php";
+$config_file = "/typeset2_config.php";
 if( file_exists( $above_site_root . $config_file ) ) { // try above site root
 	require( $above_site_root . $config_file );
-} elseif( file_exists( $site_root . '/typeset_config.php' ) ) { // try site root
+} elseif( file_exists( $site_root . $config_file ) ) { // try site root
 	require( $site_root . $config_file );
-} elseif( file_exists( $typeset_root . '/typeset_config.php' ) ) { // try typeset root
+} elseif( file_exists( $typeset_root . $config_file ) ) { // try typeset root
 	require( $typeset_root . $config_file );
 } else { // config file
 	die( '<h1 style="font:bold 50px sans-serif;color:#f00;text-align:center;">No typeset2 config file found!</h1>' );
