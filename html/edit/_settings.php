@@ -13,33 +13,12 @@ $typeset_settings->timezone = "America/Los_Angeles";
 
 // Database
 $typeset_settings->database = new StdClass;
-if (strstr($_SERVER['HTTP_HOST'],'8888')):
-	// Development
-	$typeset_settings->database->host = "localhost";
-	$typeset_settings->database->database = "typeset2";
-	$typeset_settings->database->user = "root";
-	$typeset_settings->database->password = "root";
-else:
-	// Production
-	$typeset_settings->database->host = "127.0.0.1";
-	$typeset_settings->database->database = "typeset2";
-	$typeset_settings->database->user = "typeset2_user";
-	$typeset_settings->database->password = "typeset2_password";
-endif;
+$typeset_settings->database->host = DB_HOST;
+$typeset_settings->database->database = DB_NAME;
+$typeset_settings->database->user = DB_USER;
+$typeset_settings->database->password = DB_PASSWORD;
 
-/* Admin Accounts
-Use yoursite.com/edit/actions/pw to encrypt your password,
-or use PHP's "password_hash" function yourself.
-*/
-$typeset_settings->admins = array(
-	(object) array(
-		'email' => 'bryan@resen.co',
-		'password' => '$2y$10$BCbv/.drHpVBx0I2eC1PY.FdGTDBcBUgxKSBQRQwbrQjfjisvB7f.'
-	),
-	(object) array(
-		'email' => 'demo@demo.com',
-		'password' => '$2y$10$OZJiY4/Zdxb3Ifn2.kLERO4aCH6wlwMo/5sYOqEKfPehCpnbCRzbu'
-	)
-);
+// Admin Accounts
+$typeset_settings->admins = ADMIN_CREDENTIALS;
 
 ?>
