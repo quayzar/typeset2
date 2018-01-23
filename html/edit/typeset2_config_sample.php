@@ -12,8 +12,12 @@
  * Unsure where to put it? Read more about placement here:
  * https://wordpress.stackexchange.com/q/58391
  * 
- * As this file will contain sensitive information, it should NOT be 
+ * NOTE
+ * As this file will contain sensitive information, it should *NOT* be 
  * committed to the project repository.
+ * 
+ * All non-sensitive, non-environment-specific settings should be added
+ * to edit/_settings.php.
  */
 
 /**
