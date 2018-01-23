@@ -19,6 +19,4 @@ $typeset_settings->database->user = DB_USER;
 $typeset_settings->database->password = DB_PASSWORD;
 
 // Admin Accounts
-$typeset_settings->admins = ADMIN_CREDENTIALS;
-
-?>
+$typeset_settings->admins = $ADMIN_CREDENTIALS;

@@ -20,15 +20,6 @@
  * to edit/_settings.php.
  */
 
-/**
- * Additional subdirectory
- * If the website is located at the web root, leave this blank. However, if
- * the website is located within a subdirectory in the hosting environment 
- * (such as a project-specific subdirectory within a development environment),
- * enter the subdirectory here, with a trailing slash.
- */
-define( 'ADDL_SUBDIR', '' );
-
 /* Database credentials */
 define( 'DB_HOST',		'' );
 define( 'DB_NAME',		'' );

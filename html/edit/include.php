@@ -2,37 +2,47 @@
 
 /* define paths */
 
-// typeset directory (i.e. /home/my-user/public_html/edit)
-$typeset_root = __DIR__;
+// typeset directory (i.e. /home/my-user/public_html/[addl_subdir/]edit/)
+$typeset_root = __DIR__ . '/';
 
-// hosting root (i.e. /home/my-user/public_html/)
-$site_root = realpath( dirname( $typeset_root ) );
+// site root (i.e. /home/my-user/public_html/[addl_subdir/])
+$site_root = realpath( dirname( $typeset_root ) ) . '/';
+
+// web root (i.e. /home/my-user/public_html/)
+$web_root = $_SERVER['DOCUMENT_ROOT'] . '/';
 
 // above hosting root (i.e. /home/my-user/)
-$above_site_root = dirname( $site_root );
+$above_web_root = dirname( $web_root ) . '/';
 
 /* load config file */
-$config_file = "/typeset2_config.php";
-if( file_exists( $above_site_root . $config_file ) ) { // try above site root
-	require( $above_site_root . $config_file );
-} elseif( file_exists( $site_root . $config_file ) ) { // try site root
+$config_file = "typeset2_config.php";
+if( file_exists( $above_web_root . $config_file ) ) { // check above web root
+	require( $above_web_root . $config_file );
+} elseif( file_exists( $site_root . $config_file ) ) { // check site root
 	require( $site_root . $config_file );
-} elseif( file_exists( $typeset_root . $config_file ) ) { // try typeset root
+} elseif( $site_root != $web_root && file_exists( $web_root . $config_file ) ) { // check web root
+	require( $web_root . $config_file );
+} elseif( file_exists( $typeset_root . $config_file ) ) { // check edit directory
 	require( $typeset_root . $config_file );
-} else { // config file
+} else { // no config file found
 	die( '<h1 style="font:bold 50px sans-serif;color:#f00;text-align:center;">No typeset2 config file found!</h1>' );
 }
 
-include $typeset_root . "/_settings.php";
-include $typeset_root . "/database.php";
-include $typeset_root . "/components/autoload.php";
+
+
+include $typeset_root . "_settings.php";
+include $typeset_root . "database.php";
+include $typeset_root . "components/autoload.php";
 use \Michelf\Markdown;
 $db = new DB( $typeset_settings->database );
 
-if ( !isset( $pages_path ) ) $pages_path = "";
-$admin_folder = explode( "/", $typeset_root );
-$admin_folder = end( $admin_folder );
-$admin_folder = $pages_path . $admin_folder;
+// set admin_folder (i.e. [addl_subdir/]edit/)
+$admin_folder = str_replace( $web_root, '', $typeset_root );
+$admin_folder = ( !empty( $pages_path ) ? $pages_path : '' ) . $admin_folder;
+
+// prepend full path to content directory (i.e. /home/my-user/public_html/addl_subdir/content)
+$typeset_settings->content_folder = $site_root . rtrim( $typeset_settings->content_folder, '/' );
+
 
 $credentials = array();	
 		
